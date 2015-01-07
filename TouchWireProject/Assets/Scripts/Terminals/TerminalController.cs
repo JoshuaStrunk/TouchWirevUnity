@@ -5,7 +5,7 @@ public class TerminalController : MonoBehaviour {
 
     public bool positivePolarity = true;
 
-    GameObject connectedTerminal;
+    public GameObject connectedTerminal;
     bool draggingWire;
     LineRenderer lineRenderer;
 
@@ -23,8 +23,13 @@ public class TerminalController : MonoBehaviour {
                 //Check to see if over another terminal
                 Collider2D hit = Physics2D.OverlapPoint(getMousePosition());
                 if (hit != null && hit.tag == "Terminal") {
-                    lineRenderer.SetPosition(1, hit.transform.position);
-                    connectedTerminal = hit.gameObject;
+                    if (hit.GetComponent<TerminalController>().positivePolarity) {
+                        lineRenderer.SetPosition(1, hit.transform.position);
+                        connectedTerminal = hit.gameObject;
+                    }
+                    else {
+                        lineRenderer.SetPosition(1, transform.position);
+                    }
                 }
                 else {
                     lineRenderer.SetPosition(1, transform.position);
@@ -35,6 +40,19 @@ public class TerminalController : MonoBehaviour {
                 lineRenderer.SetPosition(1, getMousePosition());
             }
         }
+        else {
+            if (!positivePolarity) {
+                lineRenderer.SetPosition(0, transform.position);
+                if (connectedTerminal != null)
+                {
+                    lineRenderer.SetPosition(1, connectedTerminal.transform.position);
+                }
+                else
+                {
+                    lineRenderer.SetPosition(1, transform.position);
+                }
+            }
+        }
 	}
 
     Vector2 getMousePosition() {
@@ -42,6 +60,9 @@ public class TerminalController : MonoBehaviour {
     }
 
     void OnMouseDown() {
-        draggingWire = true;
+        if (!positivePolarity) {
+            draggingWire = true;
+            connectedTerminal = null;
+        }
     }
 }

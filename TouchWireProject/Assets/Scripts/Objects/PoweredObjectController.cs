@@ -3,7 +3,9 @@ using System.Collections;
 
 public class PoweredObjectController : MonoBehaviour {
 
-    public bool powered = false;
+    bool powered;
+    public float powerCheckTime = .1f;
+    float lastPowered;
 
     public Sprite poweredSprite;
     public Sprite unPoweredSprite;
@@ -13,15 +15,21 @@ public class PoweredObjectController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         spriteRender = GetComponent<SpriteRenderer>();
+        powered = false;
+        lastPowered = -powerCheckTime;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (powered) {
+        if (Time.time - lastPowered < powerCheckTime) {
             spriteRender.sprite = poweredSprite;
         }
         else {
             spriteRender.sprite = unPoweredSprite;
         }
 	}
+
+    public void powerObject() {
+        lastPowered = Time.time;
+    }
 }

@@ -4,6 +4,7 @@ using System.Collections;
 public class TerminalController : MonoBehaviour {
 
     public bool positivePolarity = true;
+    public bool enableInternalWireDebug = false;
 
     public GameObject connectedTerminal;
     bool draggingWire;
@@ -23,9 +24,22 @@ public class TerminalController : MonoBehaviour {
                 //Check to see if over another terminal
                 Collider2D hit = Physics2D.OverlapPoint(getMousePosition());
                 if (hit != null && hit.tag == "Terminal") {
-                    if (hit.GetComponent<TerminalController>().positivePolarity) {
-                        lineRenderer.SetPosition(1, hit.transform.position);
+                    // - to +
+                    if (hit.GetComponent<TerminalController>().positivePolarity && !positivePolarity) {
                         connectedTerminal = hit.gameObject;
+                    }
+                    // + to + 
+                    else if (hit.GetComponent<TerminalController>().positivePolarity && positivePolarity)
+                    {
+                        connectedTerminal = hit.gameObject;
+                    }
+                    //- to -
+                    else if(!hit.GetComponent<TerminalController>().positivePolarity && !positivePolarity) {
+                        connectedTerminal = hit.gameObject;
+                    }
+                    //+ to -
+                    else if(!hit.GetComponent<TerminalController>().positivePolarity && positivePolarity) {
+                        hit.GetComponent<TerminalController>().connectedTerminal = gameObject;
                     }
                     else {
                         lineRenderer.SetPosition(1, transform.position);
@@ -35,13 +49,16 @@ public class TerminalController : MonoBehaviour {
                     lineRenderer.SetPosition(1, transform.position);
                 }
                 draggingWire = false;
+                if (positivePolarity) {
+                    lineRenderer.SetPosition(1, transform.position);
+                }
             }
             else {
                 lineRenderer.SetPosition(1, getMousePosition());
             }
         }
         else {
-            if (!positivePolarity) {
+            if (!positivePolarity || enableInternalWireDebug) {
                 lineRenderer.SetPosition(0, transform.position);
                 if (connectedTerminal != null)
                 {
@@ -60,8 +77,8 @@ public class TerminalController : MonoBehaviour {
     }
 
     void OnMouseDown() {
+        draggingWire = true;
         if (!positivePolarity) {
-            draggingWire = true;
             connectedTerminal = null;
         }
     }

@@ -12,7 +12,6 @@ public class PowerSourceObjectController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log("Complete Circuit: " + completeCircuitCheck());
         if (completeCircuitCheck()) {
             powerCircuit();
         }

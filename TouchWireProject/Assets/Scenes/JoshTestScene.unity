@@ -156,6 +156,7 @@ MonoBehaviour:
   positivePolarity: 1
   enableInternalWireDebug: 0
   connectedTerminal: {fileID: 0}
+  lineRenderer: {fileID: 0}
 --- !u!58 &51855811
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -283,6 +284,7 @@ MonoBehaviour:
   positivePolarity: 0
   enableInternalWireDebug: 0
   connectedTerminal: {fileID: 0}
+  lineRenderer: {fileID: 0}
 --- !u!58 &258335087
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -386,6 +388,7 @@ MonoBehaviour:
   positivePolarity: 1
   enableInternalWireDebug: 0
   connectedTerminal: {fileID: 0}
+  lineRenderer: {fileID: 0}
 --- !u!58 &763023928
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -683,6 +686,7 @@ MonoBehaviour:
   positivePolarity: 1
   enableInternalWireDebug: 0
   connectedTerminal: {fileID: 0}
+  lineRenderer: {fileID: 0}
 --- !u!58 &1227376573
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1020,6 +1024,7 @@ MonoBehaviour:
   positivePolarity: 0
   enableInternalWireDebug: 0
   connectedTerminal: {fileID: 0}
+  lineRenderer: {fileID: 0}
 --- !u!58 &1856738934
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1113,6 +1118,7 @@ GameObject:
   - 92: {fileID: 1886461774}
   - 124: {fileID: 1886461773}
   - 81: {fileID: 1886461772}
+  - 114: {fileID: 1886461777}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1185,6 +1191,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &1886461777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1886461771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 588c775da9f41914d8ad11f61940c618, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1932970071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1231,6 +1248,7 @@ MonoBehaviour:
   positivePolarity: 0
   enableInternalWireDebug: 0
   connectedTerminal: {fileID: 0}
+  lineRenderer: {fileID: 0}
 --- !u!58 &1932970074
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1334,6 +1352,7 @@ MonoBehaviour:
   positivePolarity: 1
   enableInternalWireDebug: 0
   connectedTerminal: {fileID: 0}
+  lineRenderer: {fileID: 0}
 --- !u!58 &1939173596
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1619,6 +1638,7 @@ MonoBehaviour:
   positivePolarity: 0
   enableInternalWireDebug: 0
   connectedTerminal: {fileID: 0}
+  lineRenderer: {fileID: 0}
 --- !u!58 &2071315718
 CircleCollider2D:
   m_ObjectHideFlags: 0

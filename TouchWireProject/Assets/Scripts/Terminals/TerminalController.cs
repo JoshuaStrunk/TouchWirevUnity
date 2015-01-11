@@ -8,7 +8,7 @@ public class TerminalController : MonoBehaviour {
 
     public GameObject connectedTerminal;
     bool draggingWire;
-    LineRenderer lineRenderer;
+    public LineRenderer lineRenderer;
 
 	// Use this for initialization
 	void Start () {
@@ -19,67 +19,18 @@ public class TerminalController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (draggingWire) {
-            if (Input.GetMouseButtonUp(0)) { 
-                //Check to see if over another terminal
-                Collider2D hit = Physics2D.OverlapPoint(getMousePosition());
-                if (hit != null && hit.tag == "Terminal") {
-                    // - to +
-                    if (hit.GetComponent<TerminalController>().positivePolarity && !positivePolarity) {
-                        connectedTerminal = hit.gameObject;
-                    }
-                    // + to + 
-                    else if (hit.GetComponent<TerminalController>().positivePolarity && positivePolarity)
-                    {
-                        connectedTerminal = hit.gameObject;
-                    }
-                    //- to -
-                    else if(!hit.GetComponent<TerminalController>().positivePolarity && !positivePolarity) {
-                        connectedTerminal = hit.gameObject;
-                    }
-                    //+ to -
-                    else if(!hit.GetComponent<TerminalController>().positivePolarity && positivePolarity) {
-                        hit.GetComponent<TerminalController>().connectedTerminal = gameObject;
-                    }
-                    else {
-                        lineRenderer.SetPosition(1, transform.position);
-                    }
-                }
-                else {
-                    lineRenderer.SetPosition(1, transform.position);
-                }
-                draggingWire = false;
-                if (positivePolarity) {
-                    lineRenderer.SetPosition(1, transform.position);
-                }
-            }
-            else {
-                lineRenderer.SetPosition(1, getMousePosition());
-            }
+        if (enableInternalWireDebug && positivePolarity && connectedTerminal != null) {
+            lineRenderer.SetPosition(1, connectedTerminal.transform.position);
         }
-        else {
-            if (!positivePolarity || enableInternalWireDebug) {
-                lineRenderer.SetPosition(0, transform.position);
-                if (connectedTerminal != null)
-                {
-                    lineRenderer.SetPosition(1, connectedTerminal.transform.position);
-                }
-                else
-                {
-                    lineRenderer.SetPosition(1, transform.position);
-                }
-            }
+        else if (enableInternalWireDebug && positivePolarity && connectedTerminal == null) {
+            lineRenderer.SetPosition(1, transform.position);
         }
 	}
 
-    Vector2 getMousePosition() {
-        return Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    public void connectTo(GameObject target) {
+        connectedTerminal = target;
+        lineRenderer.SetPosition(1, target.transform.position);
     }
 
-    void OnMouseDown() {
-        draggingWire = true;
-        if (!positivePolarity) {
-            connectedTerminal = null;
-        }
-    }
+
 }

@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PowerSourceObjectController : MonoBehaviour {
 
-    TerminalsObjectController terminals;
-
+    TerminalsObjectController terminals; 
 	// Use this for initialization
 	void Start () {
         terminals = GetComponent<TerminalsObjectController>();
@@ -19,10 +19,12 @@ public class PowerSourceObjectController : MonoBehaviour {
 
     bool completeCircuitCheck() {
         GameObject iterTerminal = terminals.negativeTerminal;
-        while (iterTerminal != terminals.positiveTerminal && iterTerminal != null) {
+        List<GameObject> vistied = new List<GameObject>();
+        while (!vistied.Contains(iterTerminal) && iterTerminal != null) {
+            vistied.Add(iterTerminal);
             iterTerminal = iterTerminal.GetComponent<TerminalController>().connectedTerminal;
         }
-        if (iterTerminal == terminals.positiveTerminal) {
+        if (iterTerminal == terminals.negativeTerminal) {
             return true;
         }
         else {

@@ -31,9 +31,13 @@ public class TerminalConnectorController : MonoBehaviour {
                 almostSelectedObject.GetComponent<TerminalController>().lineRenderer.SetPosition(1, almostSelectedObject.transform.position);
 
                 if (almostSelectedObject == hit.gameObject) {
-                    if (selectedObject != null) {
+                    if (selectedObject != null && selectedObject != almostSelectedObject) {
                         connectTerminals(selectedObject, almostSelectedObject);
                     }
+					else if(selectedObject != null && selectedObject == almostSelectedObject) {
+						selectedObject = null;
+						almostSelectedObject = null;
+					}
                     else {
                         selectedObject = almostSelectedObject;
                     }
@@ -42,12 +46,16 @@ public class TerminalConnectorController : MonoBehaviour {
                     connectTerminals(almostSelectedObject, hit.gameObject);
                 }
             }
+			if(hit == null && almostSelectedObject != null) {
+				almostSelectedObject.GetComponent<TerminalController>().deconnect();
+			}
 
             almostSelectedObject = null;
             dragging = false;
         }
 
         if (almostSelectedObject != null) {
+			almostSelectedObject.GetComponent<TerminalController>().lineRenderer.SetPosition(1, getMousePosition());
             Collider2D hit = Physics2D.OverlapPoint(getMousePosition());
             if (hit != null && hit.gameObject == almostSelectedObject) { 
             

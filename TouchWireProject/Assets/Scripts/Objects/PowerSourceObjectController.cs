@@ -22,7 +22,13 @@ public class PowerSourceObjectController : MonoBehaviour {
         List<GameObject> vistied = new List<GameObject>();
         while (!vistied.Contains(iterTerminal) && iterTerminal != null) {
             vistied.Add(iterTerminal);
-            iterTerminal = iterTerminal.GetComponent<TerminalController>().connectedTerminal;
+			TerminalController terminalController = iterTerminal.GetComponent<TerminalController>();
+			if(terminalController.connectedTerminal != null && terminalController.connectedTerminal.GetComponent<TerminalController>().positivePolarity != terminalController.positivePolarity){
+            	iterTerminal = terminalController.connectedTerminal;
+			}
+			else {
+				iterTerminal = null;
+			}
         }
         if (iterTerminal == terminals.negativeTerminal) {
             return true;
